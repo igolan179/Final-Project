@@ -15,6 +15,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import { Apps, Face, CloudDownload } from '@material-ui/icons'
 import HomeIcon from '@material-ui/icons/Home'
 import InfoIcon from '@material-ui/icons/Info';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
 // core components
 import CustomDropdown from 'components/CustomDropdown/CustomDropdown.js'
 import Button from 'components/CustomButtons/Button.js'
@@ -59,6 +60,15 @@ export default function HeaderLinks (props) {
           className={classes.navLink}
         >
           <InfoIcon className={classes.inputIconsColor} /> About
+        </Button>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Button
+          href='/contact-page'
+          color='transparent'
+          className={classes.navLink}
+        >
+          <AlternateEmailIcon className={classes.inputIconsColor} /> Contact
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>

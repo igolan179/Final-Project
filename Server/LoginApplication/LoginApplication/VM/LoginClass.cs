@@ -7,7 +7,7 @@ namespace LoginApplication.VM
 {
     public class Login
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string customerId { get; set; }
+        public string customerPassword { get; set; }
     }
 }

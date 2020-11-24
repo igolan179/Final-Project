@@ -47,10 +47,10 @@ export default function RegisterPage(props) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        CustomerId:  customerId ,
-        CustomerPass:  customerPass ,
-        CustomerName:  customerName ,
-        CustomerPhone:  customerPhone 
+        customerId:  customerId ,
+        customerPass:  customerPass ,
+        customerName:  customerName ,
+        customerPhone:  customerPhone 
       })
     }).then((Response) => Response.json())
       .then((Result) => {
@@ -118,14 +118,14 @@ export default function RegisterPage(props) {
                   <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
                     <CustomInput
-                      labelText="Username..."
-                      id="Username"
+                      labelText="ID Number"
+                      id="Id"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
                         onChange: (e) => setCustomerId(e.target.value),
-                        type: "text",
+                        type: "number",
                         endAdornment: (
                           <InputAdornment position="end">
                             <Person className={classes.inputIconsColor} />
@@ -154,12 +154,12 @@ export default function RegisterPage(props) {
                     />
                     <CustomInput
                       labelText="Confirm Password"
-                      id="pass"
+                      id="pass-confirm"
+                      error
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        // onChange: (e) => setCustomerPass(e.target.value),
                         type: "password",
                         endAdornment: (
                           <InputAdornment position="end">

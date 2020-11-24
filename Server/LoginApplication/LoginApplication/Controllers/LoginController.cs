@@ -19,8 +19,7 @@ namespace LoginApplication.Controllers
         {
             try
             {
-                   
-                if (DB.Customers.Any(x=>x.CustomerId==Reg.CustomerId))
+                if (DB.Customers.Any(x=>x.CustomerId==Reg.customerId))
                 {
                     return new Response
                     { Status = "Error", Message = "Record Already Exist." };
@@ -28,10 +27,10 @@ namespace LoginApplication.Controllers
                 else
                 {
                     Customer Customer = new Customer();
-                    Customer.CustomerId = Reg.CustomerId;
-                    Customer.CustomerPass = Reg.CustomerPass;
-                    Customer.CustomerName = Reg.CustomerName;
-                    Customer.CustomerPhone = Reg.CustomerPhone;
+                    Customer.CustomerId = Reg.customerId;
+                    Customer.CustomerPass = Reg.customerPass;
+                    Customer.CustomerName = Reg.customerName;
+                    Customer.CustomerPhone = Reg.customerPhone;
                     DB.Customers.Add(Customer);
                     DB.SaveChanges();
                     return new Response
@@ -51,15 +50,13 @@ namespace LoginApplication.Controllers
         [HttpPost]
         public Response CustomerLogin(Login login)
         {
-            var log = DB.Customers.Where(x => x.CustomerId.Equals(login.Username) &&
-                      x.CustomerPass.Equals(login.Password)).FirstOrDefault();
-
-            if (log == null)
+            if (DB.Customers.Any(x => x.CustomerId == login.customerId && x.CustomerPass == login.customerPassword))
             {
-                return new Response { Status = "Invalid", Message = "Invalid User." };
-            }
-            else
                 return new Response { Status = "Success", Message = "Login Successfully" };
+                
+            }
+            else return new Response { Status = "Invalid", Message = "Invalid User." };
+
         }
     }
 }

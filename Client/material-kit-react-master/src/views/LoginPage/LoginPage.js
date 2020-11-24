@@ -33,6 +33,34 @@ export default function LoginPage(props) {
   }, 700);
   const classes = useStyles();
   const { ...rest } = props;
+
+  const [customerId, setCustomerId] = React.useState("");
+  const [customerPass, setCustomerPass] = React.useState("");
+
+  function Login() {
+    alert(customerId)
+    alert(customerPass)
+    fetch('https://localhost:44361/api/login/Login', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        customerId:  customerId ,
+        customerPassword:  customerPass ,
+      })
+    }).then((Response) => Response.json())
+      .then((Result) => {
+        if (Result.Status == 'Success'){
+          alert('Success!!')
+          
+        }
+        else
+          alert('Sorrrrrry !!!! Un-authenticated User !!!!!')
+    })
+  }
+
   return (
     <div>
       <Header
@@ -90,13 +118,15 @@ export default function LoginPage(props) {
                   <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
                   <CustomInput
-                      labelText="Username..."
-                      id="Username"
+                      labelText="ID Number"
+                      id="Id"
                       formControlProps={{
                         fullWidth: true
                       }}
                       inputProps={{
-                        type: "text",
+                        onChange: (e) => setCustomerId(e.target.value),
+                        type: "number",
+                        appearance: 'none',
                         endAdornment: (
                           <InputAdornment position="end">
                             <Person className={classes.inputIconsColor} />
@@ -111,6 +141,7 @@ export default function LoginPage(props) {
                         fullWidth: true
                       }}
                       inputProps={{
+                        onChange: (e) => setCustomerPass(e.target.value),
                         type: "password",
                         endAdornment: (
                           <InputAdornment position="end">
@@ -124,8 +155,9 @@ export default function LoginPage(props) {
                     />
                   </CardBody>
                   <CardFooter className={classes.cardFooter}>
-                    <Button simple color="primary" size="lg">
-                      Log In
+                  <Button simple color="info" size="lg"
+                      onClick={()=>Login()}>
+                      Login
                     </Button>
                   </CardFooter>
                 </form>

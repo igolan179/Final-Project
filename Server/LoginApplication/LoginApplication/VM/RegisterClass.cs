@@ -7,9 +7,9 @@ namespace LoginApplication.VM
 {
     public class Register
     {
-        public string CustomerId { get; set; }
-        public string CustomerPass { get; set; }
-        public string CustomerName { get; set; }
-        public int CustomerPhone { get; set; }
+        public string customerId { get; set; }
+        public string customerPass { get; set; }
+        public string customerName { get; set; }
+        public int customerPhone { get; set; }
     }
 }

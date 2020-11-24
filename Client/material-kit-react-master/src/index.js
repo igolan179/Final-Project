@@ -13,6 +13,7 @@ import RegisterPage from "views/RegisterPage/RegisterPage.js";
 import AboutPage from "views/AboutPage/AboutPage.js";
 import ContactPage from "views/ContactPage/ContactPage.js"
 import Register_Temp from "views/RegisterPage/Register_Temp.js"
+import UserProfilePage from "views/UserProfilePage/UserProfilePage.js"
 
 var hist = createBrowserHistory();
 
@@ -25,6 +26,7 @@ ReactDOM.render(
       <Route path="/register-page" component={RegisterPage} />
       <Route path="/contact-page" component={ContactPage} />
       <Route path="/register-temp" component={Register_Temp} />
+      <Route patch='/user-profile' component ={UserProfilePage} />
       <Route path="/" component={Components} />
     </Switch>
   </Router>,
