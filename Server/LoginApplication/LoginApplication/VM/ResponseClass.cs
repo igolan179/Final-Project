@@ -9,5 +9,6 @@ namespace LoginApplication.VM
     {
         public string Status { set; get; }
         public string Message { set; get; }
+        public string Name { set; get; }
     }
 }

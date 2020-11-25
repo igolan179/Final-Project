@@ -1,4 +1,5 @@
 import React from "react";
+import { Router, Route, Switch,Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -7,6 +8,8 @@ import Icon from "@material-ui/core/Icon";
 import Person from "@material-ui/icons/Person";
 import Face from "@material-ui/icons/Face";
 import Smartphone from "@material-ui/icons/Smartphone";
+import Check from "@material-ui/icons/Check";
+import Warning from "@material-ui/icons/Warning";
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -19,6 +22,7 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
+import swal from 'sweetalert'
 
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
 
@@ -38,6 +42,212 @@ export default function RegisterPage(props) {
   const [customerPass, setCustomerPass] = React.useState("");
   const [customerName, setCustomerName] = React.useState("");
   const [customerPhone, setCustomerPhone] = React.useState("");
+  const [customerPassConfirm, setCustomerPassConfirm] = React.useState("");
+
+
+  function isIsraeliIdNumber(id) { // By Shlomi Turjeman
+    id = String(id).trim();
+    if (id.length > 9 || isNaN(id)) return false;
+    id = id.length < 9 ? ("00000000" + id).slice(-9) : id;
+      return Array.from(id, Number).reduce((counter, digit, i) => {
+        const step = digit * ((i % 2) + 1);
+        return counter + (step > 9 ? step - 9 : step);
+      }) % 10 === 0;
+  }
+
+  function idConfirm(){
+    if(customerId.length < 9){
+      return (
+        <CustomInput
+          labelText="ID Number"
+          id="Id"
+          error
+          formControlProps={{
+            fullWidth: true
+          }}
+          inputProps={{
+            onChange: (e) => setCustomerId(e.target.value),
+            type: "number",
+            endAdornment: (
+              <InputAdornment position="end">
+                <Person className={classes.inputIconsColor} />
+              </InputAdornment>
+            )
+          }}
+        />
+      )
+    }
+    else if(isIsraeliIdNumber(customerId)){
+      return (
+        <CustomInput
+          labelText="ID Number"
+          id="Id"
+          success
+          formControlProps={{
+            fullWidth: true
+          }}
+          inputProps={{
+            onChange: (e) => setCustomerId(e.target.value),
+            type: "number",
+            endAdornment: (
+              <InputAdornment position="end">
+                <Person className={classes.inputIconsColor} />
+              </InputAdornment>
+            )
+          }}
+        />
+      )
+    }
+    else {
+      return (
+        <CustomInput
+          labelText="ID Number"
+          id="Id"
+          error
+          formControlProps={{
+            fullWidth: true
+          }}
+          inputProps={{
+            onChange: (e) => setCustomerId(e.target.value),
+            type: "number",
+            endAdornment: (
+              <InputAdornment position="end">
+                <Person className={classes.inputIconsColor} />
+              </InputAdornment>
+            )
+          }}
+        />
+      )
+    }
+
+  }
+
+  function passValidation(){
+    if(customerPass.length > 10 || customerPass.length <= 5){
+      return (
+        <CustomInput
+          labelText="Password"
+          id="pass"
+          error
+          formControlProps={{
+            fullWidth: true
+          }}
+          inputProps={{
+            onChange: (e) => setCustomerPass(e.target.value),
+            type: "password",
+            endAdornment: (
+              <InputAdornment position="end">
+                <Icon className={classes.inputIconsColor}>
+                  lock_outline
+                </Icon>
+              </InputAdornment>
+            ),
+            autoComplete: "off"
+          }}
+        />
+      )
+    } else{
+      return (
+        <CustomInput
+          labelText="Password"
+          id="pass"
+          success
+          formControlProps={{
+            fullWidth: true
+          }}
+          inputProps={{
+            onChange: (e) => setCustomerPass(e.target.value),
+            type: "password",
+            endAdornment: (
+              <InputAdornment position="end">
+                <Icon className={classes.inputIconsColor}>
+                  lock_outline
+                </Icon>
+              </InputAdornment>
+            ),
+            autoComplete: "off"
+          }}
+        />
+      )
+    }
+  }
+
+  function passConfirm(){
+    if(customerPassConfirm.length < 1)
+    {
+      return (
+        <CustomInput
+      labelText="Confirm Password"
+      id="pass-confirm"
+      error
+      formControlProps={{
+        fullWidth: true
+      }}
+      inputProps={{
+        onChange: (e) => setCustomerPassConfirm(e.target.value),
+        type: "password",
+        endAdornment: (
+          <InputAdornment position="end">
+            <Icon className={classes.inputIconsColor}>
+              lock_open
+            </Icon>
+          </InputAdornment>
+        ),
+        autoComplete: "off"
+      }}
+    />
+      )
+    }
+    else if(customerPass == customerPassConfirm){
+      return (
+      <CustomInput
+      labelText="Confirm Password"
+      id="pass-confirm"
+      success
+      formControlProps={{
+        fullWidth: true
+      }}
+      inputProps={{
+        onChange: (e) => setCustomerPassConfirm(e.target.value),
+        type: "password",
+        endAdornment: (
+          <InputAdornment position="end">
+            <Icon className={classes.inputIconsColor}>
+              lock_outline
+            </Icon>
+          </InputAdornment>
+        ),
+        autoComplete: "off"
+      }}
+    />
+    )
+    }
+    else {
+      return (
+      <CustomInput
+      labelText="Confirm Password"
+      id="pass-confirm"
+      error
+      formControlProps={{
+        fullWidth: true
+      }}
+      inputProps={{
+        onChange: (e) => setCustomerPassConfirm(e.target.value),
+        type: "password",
+        endAdornment: (
+          <InputAdornment position="end">
+            <Icon className={classes.inputIconsColor}>
+              lock_open
+            </Icon>
+          </InputAdornment>
+        ),
+        autoComplete: "off"
+      }}
+    />
+      )
+    }
+
+  }
 
   function Register() {
     fetch('https://localhost:44361/api/login/InsertCustomer', {
@@ -55,12 +265,28 @@ export default function RegisterPage(props) {
     }).then((Response) => Response.json())
       .then((Result) => {
         if (Result.Status == 'Success'){
-          alert('Success!!')
+          swal({
+            title: "Success!",
+            text: Result.Message,
+            icon: "success",
+          })
+          .then(() => {
+            
+              });
         }
-        else
-          alert('Sorrrrrry !!!! Un-authenticated User !!!!!')
+        else{
+          swal({
+            title: "Error!",
+            text: Result.Message,
+            icon: "error",
+          }).then(() => {
+              
+          })
+        }
       })
   }
+
+
   return (
     <div>
       <Header
@@ -117,60 +343,9 @@ export default function RegisterPage(props) {
                   </CardHeader>
                   <p className={classes.divider}>Or Be Classical</p>
                   <CardBody>
-                    <CustomInput
-                      labelText="ID Number"
-                      id="Id"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        onChange: (e) => setCustomerId(e.target.value),
-                        type: "number",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Person className={classes.inputIconsColor} />
-                          </InputAdornment>
-                        )
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Password"
-                      id="pass"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        onChange: (e) => setCustomerPass(e.target.value),
-                        type: "password",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_outline
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off"
-                      }}
-                    />
-                    <CustomInput
-                      labelText="Confirm Password"
-                      id="pass-confirm"
-                      error
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        type: "password",
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_open
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off"
-                      }}
-                    />
+                    {idConfirm()}
+                    {passValidation()}
+                    {passConfirm()}
                     <CustomInput
                       labelText="Full Name..."
                       id="name"

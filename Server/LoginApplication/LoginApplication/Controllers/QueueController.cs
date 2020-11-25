@@ -9,18 +9,22 @@ using LoginApplication.VM;
 
 namespace LoginApplication.Controllers
 {
-    [RoutePrefix("Api/queue")]
-    public class QueueController : ApiController
-    {
-        CosmeticDBEntities DB = new CosmeticDBEntities();
-        [Route("InsertQueue")]
-        [HttpPost]
-        public object InsertQueue(Queue queue)
-        {
-            try
-            {
-
-            }
-        }
-    }
+    //[RoutePrefix("Api/queue")]
+    //public class QueueController : ApiController
+    //{
+    //    CosmeticDBEntities DB = new CosmeticDBEntities();
+    //    [Route("InsertQueue")]
+    //    [HttpPost]
+    //    public object InsertQueue(Queue queue)
+    //    {
+    //        try
+    //        {
+                
+    //        }
+    //        catch
+    //        {
+                
+    //        }
+    //    }
+    //}
 }

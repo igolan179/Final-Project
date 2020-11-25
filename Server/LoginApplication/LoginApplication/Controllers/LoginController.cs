@@ -22,7 +22,17 @@ namespace LoginApplication.Controllers
                 if (DB.Customers.Any(x=>x.CustomerId==Reg.customerId))
                 {
                     return new Response
-                    { Status = "Error", Message = "Record Already Exist." };
+                    { Status = "Error", Message = "User Already Exist." };
+                }
+                else if(Reg.customerId.Length < 9)
+                {
+                    return new Response
+                    { Status = "Error", Message = "Invalid ID." };
+                }
+                else if (Reg.customerPass.Length > 10 || Reg.customerPass.Length <= 5)
+                {
+                    return new Response
+                    { Status = "Error", Message = "Invalid Password" };
                 }
                 else
                 {
@@ -34,7 +44,7 @@ namespace LoginApplication.Controllers
                     DB.Customers.Add(Customer);
                     DB.SaveChanges();
                     return new Response
-                    { Status = "Success", Message = "Record SuccessFully Added." };
+                    { Status = "Success", Message = "User Registered." };
 
                 }
             }
@@ -44,7 +54,7 @@ namespace LoginApplication.Controllers
                 throw;
             }
             return new Response
-            { Status = "Error", Message = "Invalid Data." };
+            { Status = "Error", Message = "Invalid Info." };
         }
         [Route("Login")]
         [HttpPost]
@@ -52,10 +62,11 @@ namespace LoginApplication.Controllers
         {
             if (DB.Customers.Any(x => x.CustomerId == login.customerId && x.CustomerPass == login.customerPassword))
             {
-                return new Response { Status = "Success", Message = "Login Successfully" };
-                
+                Customer customer = DB.Customers.FirstOrDefault(cust => cust.CustomerId == login.customerId);
+
+                return new Response { Status = "Success", Message = "Login Successfully", Name = customer.CustomerName};
             }
-            else return new Response { Status = "Invalid", Message = "Invalid User." };
+            else return new Response { Status = "Invalid", Message = "User Does Not Exists." };
 
         }
     }

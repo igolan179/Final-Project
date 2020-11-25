@@ -1,9 +1,6 @@
 /*eslint-disable*/
 import React from 'react'
-import DeleteIcon from '@material-ui/icons/Delete'
-import IconButton from '@material-ui/core/IconButton'
 // react components for routing our app without refresh
-import { Link } from 'react-router-dom'
 
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles'
@@ -12,29 +9,57 @@ import ListItem from '@material-ui/core/ListItem'
 import Tooltip from '@material-ui/core/Tooltip'
 
 // @material-ui/icons
-import { Apps, Face, CloudDownload } from '@material-ui/icons'
+import Face from '@material-ui/icons'
 import HomeIcon from '@material-ui/icons/Home'
 import InfoIcon from '@material-ui/icons/Info';
 import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
+
 // core components
-import CustomDropdown from 'components/CustomDropdown/CustomDropdown.js'
 import Button from 'components/CustomButtons/Button.js'
 
+import Cookies from 'js-cookie'
 import styles from 'assets/jss/material-kit-react/components/headerLinksStyle.js'
 
 const useStyles = makeStyles(styles)
 
 export default function HeaderLinks (props) {
   const classes = useStyles()
-  return (
-    <List className={classes.list}>
-      <ListItem className={classes.listItem}>
-        <Button href='/' color='transparent' className={classes.navLink}>
-          {' '}
-          <HomeIcon className={classes.inputIconsColor} />
+
+  function UserOnline(){
+    if(Cookies.get('userName') != undefined){
+      return (
+        <span>
+        <ListItem className={classes.listItem}>
+        <Button
+          href='/profile-page'
+          color='transparent'
+          className={classes.navLink}
+        >
+          <PersonIcon className={classes.inputIconsColor} /> {Cookies.get('userName')}
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
+        <Button
+          href='/'
+          color='transparent'
+          className={classes.navLink}
+          onClick ={()=>{
+            Cookies.remove('userName');
+            Cookies.remove('userId');
+          }}
+        >
+          <ExitToAppIcon className={classes.inputIconsColor} /> Log Out
+        </Button>
+      </ListItem>
+      </span>
+      )
+    }
+    else {
+      return (
+        <span>
+        <ListItem className={classes.listItem}>
         <Button
           href='/login-page'
           color='transparent'
@@ -53,6 +78,20 @@ export default function HeaderLinks (props) {
           <span class='material-icons'>account_circle</span> Register
         </Button>
       </ListItem>
+      </span>
+      )
+    }
+  }
+
+  return (
+    <List className={classes.list}>
+      <ListItem className={classes.listItem}>
+        <Button href='/' color='transparent' className={classes.navLink}>
+          {' '}
+          <HomeIcon className={classes.inputIconsColor} />
+        </Button>
+      </ListItem>
+      {UserOnline()}
       <ListItem className={classes.listItem}>
         <Button
           href='/about-page'

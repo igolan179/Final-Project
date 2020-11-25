@@ -5,8 +5,6 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
-import Face from "@material-ui/icons/Face";
-import Smartphone from "@material-ui/icons/Smartphone";
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -19,8 +17,11 @@ import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-
+import swal from 'sweetalert'
 import styles from "assets/jss/material-kit-react/views/loginPage.js";
+import Cookies from 'js-cookie'
+import { Router, Route, Switch } from "react-router-dom";
+
 
 import image from "assets/img/bg7.jpg";
 
@@ -34,12 +35,12 @@ export default function LoginPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
 
+
   const [customerId, setCustomerId] = React.useState("");
   const [customerPass, setCustomerPass] = React.useState("");
 
+
   function Login() {
-    alert(customerId)
-    alert(customerPass)
     fetch('https://localhost:44361/api/login/Login', {
       method: 'post',
       headers: {
@@ -51,13 +52,33 @@ export default function LoginPage(props) {
         customerPassword:  customerPass ,
       })
     }).then((Response) => Response.json())
-      .then((Result) => {
-        if (Result.Status == 'Success'){
-          alert('Success!!')
-          
-        }
-        else
-          alert('Sorrrrrry !!!! Un-authenticated User !!!!!')
+    .then((Result) => {
+      if (Result.Status == 'Success'){
+        swal({
+          title: "Success!",
+          text: Result.Message,
+          icon: "success",
+        })
+        .then(() => {
+          var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
+          Cookies.set('userId',customerId, {expires: inFifteenMinutes});
+          Cookies.set('userName',Result.Name, {expires: inFifteenMinutes});
+            
+          console.log(Cookies.get('userId'));
+          console.log(Cookies.get('user'));
+
+          props.history.push('/');
+        });
+      }
+      else{
+        swal({
+          title: "Error!",
+          text: Result.Message,
+          icon: "error",
+        }).then(() => {
+            
+        })
+      }
     })
   }
 

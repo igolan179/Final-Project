@@ -48,6 +48,10 @@ export default function UserProfilePage(props) {
     classes.imgFluid
   );
   const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+
+  function doNothing(){
+      return;
+  }
   return (
     <div>
       <Header
@@ -89,7 +93,7 @@ export default function UserProfilePage(props) {
                 </div>
               </GridItem>
             </GridContainer>
-            <div className={classes.description+" Custom-tabs-wrapper"}>
+            <div className={classes.description}>
               <p>
                 Choose from the following Tabs:{" "}
               </p>
@@ -116,6 +120,11 @@ export default function UserProfilePage(props) {
                             <FormControl fullWidth>
                               <Datetime
                                 timeFormat={false}
+                                closeOnSelect
+                                disableOnClickOutside={false}
+                                onChange = {e => (
+                                    doNothing()
+                                )}
                                 inputProps={{ placeholder: "Choose Here..." }}
                               />
                             </FormControl>
@@ -128,16 +137,9 @@ export default function UserProfilePage(props) {
                     tabName: "Edit Appointment",
                     tabIcon: EventNoteIcon,
                     tabContent: (
-                      <p className={classes.textCenter}>
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. I will be the leader of a company
-                        that ends up being worth billions of dollars, because I
-                        got the answers. I understand culture. I am the nucleus.
-                        I think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at.
-                      </p>
+                    <div>
+                        
+                    </div>
                     )
                   },
                   {
