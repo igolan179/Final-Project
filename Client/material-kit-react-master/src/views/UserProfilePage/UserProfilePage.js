@@ -10,6 +10,7 @@ import EventBusyIcon from '@material-ui/icons/EventBusy';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -21,19 +22,12 @@ import CustomTabs from "components/CustomTabs/CustomTabs.js";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Parallax from "components/Parallax/Parallax.js";
+import ScheduleBtnSuccess from 'views/UserProfilePage/ScheduleBtnSuccess.js'
+import ScheduleBtnError from 'views/UserProfilePage/ScheduleBtnError.js'
 
-import logo from "assets/img/faces/card-profile4-square.jpg";
+import Cookies from 'js-cookie'
+import logo from "assets/img/faces/default.jpg";
 
-import studio1 from "assets/img/examples/studio-1.jpg";
-import studio2 from "assets/img/examples/studio-2.jpg";
-import studio3 from "assets/img/examples/studio-3.jpg";
-import studio4 from "assets/img/examples/studio-4.jpg";
-import studio5 from "assets/img/examples/studio-5.jpg";
-import work1 from "assets/img/examples/olu-eletu.jpg";
-import work2 from "assets/img/examples/clem-onojeghuo.jpg";
-import work3 from "assets/img/examples/cynthia-del-rio.jpg";
-import work4 from "assets/img/examples/mariya-georgieva.jpg";
-import work5 from "assets/img/examples/clem-onojegaw.jpg";
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 
@@ -47,13 +41,44 @@ export default function UserProfilePage(props) {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
-  const navImageClasses = classNames(classes.imgRounded, classes.imgGallery);
+  const [datePick, setdatePick] = React.useState(undefined);
+  const [customerQueue, setcustomerQueue] = React.useState("");
 
-  function doNothing(){
-      return;
+  var items = [];
+  function ScheduleBtnHandler(){
+    if(true){
+    var time = 570;
+    for(var i=0;i<10;i++){
+      items.push(ScheduleBtnSuccess(time));
+      time += 30;
+    }
+    time = 570;
+    }
   }
+
+  function reDirect(){
+      if(Cookies.get('userId') == undefined){
+        props.history.push('/login-page');
+      }
+  }
+    function ScheduleHandler() {
+      fetch('https://localhost:44361/api/login/Login', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          customerId: Cookies.get('customerId'),
+          customerQueue: customerQueue
+        })
+      }).then((Response) => Response.json())
+      .then((Result) => {});
+    }
+  
   return (
     <div>
+      {reDirect()}
       <Header
         color="transparent"
         brand="Profile Page"
@@ -76,7 +101,7 @@ export default function UserProfilePage(props) {
                     <img src={logo} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
-                    <h1 className={classes.title}>User Name Here</h1>
+                    <h1 className={classes.title}>{Cookies.get('userName')}</h1>
                     <hr></hr>
                     <Button justIcon link className={classes.margin5}>
                       <i className={"fab fa-twitter"} />
@@ -107,7 +132,8 @@ export default function UserProfilePage(props) {
                     tabName: "Make an Appointment",
                     tabIcon: EventAvailableIcon,
                     tabContent: (
-                        <GridItem xs={12} sm={12} md={12}>
+                      <GridItem xs={12} sm={12} md={12}>
+                        <div className="schedule-grid">
                         <div className={classes.title}>
                           <h3>Pick Your Appointment Date</h3>
                         </div>
@@ -120,16 +146,33 @@ export default function UserProfilePage(props) {
                             <FormControl fullWidth>
                               <Datetime
                                 timeFormat={false}
+                                onChange={(e)=>{
+                                  setdatePick(e.format("DD-MM-YYYY"));
+                                }}
                                 closeOnSelect
                                 disableOnClickOutside={false}
-                                onChange = {e => (
-                                    doNothing()
-                                )}
                                 inputProps={{ placeholder: "Choose Here..." }}
                               />
                             </FormControl>
                           </GridItem>
                         </GridContainer>
+                        <div className='schedule-wrapper'>
+                        <GridContainer>
+                        {ScheduleBtnHandler()}
+                        {items.map((x) => {
+                          return x;
+                        })} 
+                        </GridContainer>
+                        </div>
+                      </div>
+                      <GridItem xs={12} sm={12} md={12} justify="center">
+                        <Button 
+                        onClick={()=>{
+
+                        }}
+                        color="primary">Submit
+                        </Button>
+                      </GridItem>
                       </GridItem>
                     )
                   },
