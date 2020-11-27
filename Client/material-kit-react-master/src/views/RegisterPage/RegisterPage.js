@@ -279,9 +279,14 @@ export default function RegisterPage(props) {
             title: "Error!",
             text: Result.Message,
             icon: "error",
-          }).then(() => {
-              
-          })
+          }).catch(err => {
+            if (err) {
+              swal("Error!", "The server is offline!", "error");
+            } else {
+              swal.stopLoading();
+              swal.close();
+            }
+          });
         }
       })
   }

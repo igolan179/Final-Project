@@ -19,19 +19,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="QueueDate" Type="datetime" Nullable="false" />
-          <Property Name="Treatment" Type="int" Nullable="false" />
-          <Property Name="Comments" Type="varchar" MaxLength="255" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QueueDate" Type="datetime" />
+          <Property Name="Treatment" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Treatment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="TreatmentName" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__Customer__Custom__29572725">
+        <Association Name="FK_KEY">
           <End Role="CustomerQueue" Type="Self.CustomerQueue" Multiplicity="0..1" />
           <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -43,29 +35,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CustomerQ__Treat__267ABA7A">
-          <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
-          <End Role="CustomerQueue" Type="Self.CustomerQueue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Treatment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerQueue">
-              <PropertyRef Name="Treatment" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CosmeticDBModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerQueue" EntityType="Self.CustomerQueue" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Treatment" EntityType="Self.Treatment" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Customer__Custom__29572725" Association="Self.FK__Customer__Custom__29572725">
+          <AssociationSet Name="FK_KEY" Association="Self.FK_KEY">
             <End Role="CustomerQueue" EntitySet="CustomerQueue" />
             <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CustomerQ__Treat__267ABA7A" Association="Self.FK__CustomerQ__Treat__267ABA7A">
-            <End Role="Treatment" EntitySet="Treatment" />
-            <End Role="CustomerQueue" EntitySet="CustomerQueue" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -82,28 +57,18 @@
           <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CustomerPhone" Type="Int32" Nullable="false" />
           <Property Name="CustomerQueue" Type="Int32" />
-          <NavigationProperty Name="CustomerQueue1" Relationship="Self.FK__Customer__Custom__29572725" FromRole="Customer" ToRole="CustomerQueue" />
+          <NavigationProperty Name="CustomerQueue1" Relationship="Self.FK_KEY" FromRole="Customer" ToRole="CustomerQueue" />
         </EntityType>
         <EntityType Name="CustomerQueue">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="QueueDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Treatment" Type="Int32" Nullable="false" />
-          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK__Customer__Custom__29572725" FromRole="CustomerQueue" ToRole="Customer" />
-          <NavigationProperty Name="Treatment1" Relationship="Self.FK__CustomerQ__Treat__267ABA7A" FromRole="CustomerQueue" ToRole="Treatment" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QueueDate" Type="DateTime" Precision="3" />
+          <Property Name="Treatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_KEY" FromRole="CustomerQueue" ToRole="Customer" />
         </EntityType>
-        <EntityType Name="Treatment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="TreatmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="CustomerQueues" Relationship="Self.FK__CustomerQ__Treat__267ABA7A" FromRole="Treatment" ToRole="CustomerQueue" />
-        </EntityType>
-        <Association Name="FK__Customer__Custom__29572725">
+        <Association Name="FK_KEY">
           <End Role="CustomerQueue" Type="Self.CustomerQueue" Multiplicity="0..1" />
           <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
           <ReferentialConstraint>
@@ -115,29 +80,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__CustomerQ__Treat__267ABA7A">
-          <End Role="Treatment" Type="Self.Treatment" Multiplicity="1" />
-          <End Role="CustomerQueue" Type="Self.CustomerQueue" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Treatment">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerQueue">
-              <PropertyRef Name="Treatment" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="CosmeticDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="CustomerQueues" EntityType="Self.CustomerQueue" />
-          <EntitySet Name="Treatments" EntityType="Self.Treatment" />
-          <AssociationSet Name="FK__Customer__Custom__29572725" Association="Self.FK__Customer__Custom__29572725">
+          <AssociationSet Name="FK_KEY" Association="Self.FK_KEY">
             <End Role="CustomerQueue" EntitySet="CustomerQueues" />
             <End Role="Customer" EntitySet="Customers" />
-          </AssociationSet>
-          <AssociationSet Name="FK__CustomerQ__Treat__267ABA7A" Association="Self.FK__CustomerQ__Treat__267ABA7A">
-            <End Role="Treatment" EntitySet="Treatments" />
-            <End Role="CustomerQueue" EntitySet="CustomerQueues" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -163,15 +111,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="QueueDate" ColumnName="QueueDate" />
                 <ScalarProperty Name="Treatment" ColumnName="Treatment" />
-                <ScalarProperty Name="Comments" ColumnName="Comments" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Treatments">
-            <EntityTypeMapping TypeName="CosmeticDBModel.Treatment">
-              <MappingFragment StoreEntitySet="Treatment">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TreatmentName" ColumnName="TreatmentName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

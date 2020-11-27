@@ -18,15 +18,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="QueueDate" ColumnName="QueueDate" />
           <ScalarProperty Name="Treatment" ColumnName="Treatment" />
-          <ScalarProperty Name="Comments" ColumnName="Comments" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Treatments">
-      <EntityTypeMapping TypeName="CosmeticDBModel.Treatment">
-        <MappingFragment StoreEntitySet="Treatment">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="TreatmentName" ColumnName="TreatmentName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

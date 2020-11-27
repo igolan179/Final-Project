@@ -4,12 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="03b3057c9f5e45e29cdd47a740221a4b" Name="Diagram1">
-        <EntityTypeShape EntityType="CosmeticDBModel.Customer" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CosmeticDBModel.CustomerQueue" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CosmeticDBModel.Treatment" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <AssociationConnector Association="CosmeticDBModel.FK__Customer__Custom__29572725" ManuallyRouted="false" />
-        <AssociationConnector Association="CosmeticDBModel.FK__CustomerQ__Treat__267ABA7A" ManuallyRouted="false" />
+      <Diagram DiagramId="363a3eb0a0bc4b5ea887f2963ece5577" Name="Diagram1">
+        <EntityTypeShape EntityType="CosmeticDBModel.Customer" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CosmeticDBModel.CustomerQueue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="CosmeticDBModel.FK_KEY" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

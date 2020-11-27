@@ -27,6 +27,5 @@ namespace LoginApplication.Models
     
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<CustomerQueue> CustomerQueues { get; set; }
-        public virtual DbSet<Treatment> Treatments { get; set; }
     }
 }

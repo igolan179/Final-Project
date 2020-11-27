@@ -21,12 +21,10 @@ namespace LoginApplication.Models
         }
     
         public int Id { get; set; }
-        public System.DateTime QueueDate { get; set; }
-        public int Treatment { get; set; }
-        public string Comments { get; set; }
+        public Nullable<System.DateTime> QueueDate { get; set; }
+        public string Treatment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customers { get; set; }
-        public virtual Treatment Treatment1 { get; set; }
     }
 }

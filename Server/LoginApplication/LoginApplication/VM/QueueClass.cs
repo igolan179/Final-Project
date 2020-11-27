@@ -7,9 +7,8 @@ namespace LoginApplication.VM
 {
     public class QueueClass
     {
-        public int queueId { get; set; }
+        public int id { get; set; }
         public DateTime queueDate { get; set; }
-        public int treatment { get; set; }
-        public string comments { get; set; }
+        public string treatment { get; set; }
     }
 }

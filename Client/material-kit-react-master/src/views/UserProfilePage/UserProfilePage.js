@@ -10,7 +10,6 @@ import EventBusyIcon from '@material-ui/icons/EventBusy';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import SettingsIcon from '@material-ui/icons/Settings';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -22,8 +21,8 @@ import CustomTabs from "components/CustomTabs/CustomTabs.js";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Parallax from "components/Parallax/Parallax.js";
-import ScheduleBtnSuccess from 'views/UserProfilePage/ScheduleBtnSuccess.js'
-import ScheduleBtnError from 'views/UserProfilePage/ScheduleBtnError.js'
+import ScheduleBtn from 'views/UserProfilePage/ScheduleBtn.js'
+
 
 import Cookies from 'js-cookie'
 import logo from "assets/img/faces/default.jpg";
@@ -41,41 +40,33 @@ export default function UserProfilePage(props) {
     classes.imgRoundedCircle,
     classes.imgFluid
   );
-  const [datePick, setdatePick] = React.useState(undefined);
+  const [datePick, setdatePick] = React.useState(null);
   const [customerQueue, setcustomerQueue] = React.useState("");
-
-  var items = [];
-  function ScheduleBtnHandler(){
-    if(true){
-    var time = 570;
-    for(var i=0;i<10;i++){
-      items.push(ScheduleBtnSuccess(time));
-      time += 30;
-    }
-    time = 570;
-    }
-  }
 
   function reDirect(){
       if(Cookies.get('userId') == undefined){
         props.history.push('/login-page');
       }
   }
-    function ScheduleHandler() {
-      fetch('https://localhost:44361/api/login/Login', {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          customerId: Cookies.get('customerId'),
-          customerQueue: customerQueue
-        })
-      }).then((Response) => Response.json())
-      .then((Result) => {});
-    }
-  
+
+
+  function GetQueuesByDate(date){
+    fetch('https://localhost:44361/api/queue/GetQueues', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: date,
+      })
+    }).then((Response) => Response.json())
+    .then((Result) => {
+      console.log(Result);
+      setdatePick(Result);
+    });
+  }
+
   return (
     <div>
       {reDirect()}
@@ -146,11 +137,11 @@ export default function UserProfilePage(props) {
                             <FormControl fullWidth>
                               <Datetime
                                 timeFormat={false}
-                                onChange={(e)=>{
-                                  setdatePick(e.format("DD-MM-YYYY"));
-                                }}
                                 closeOnSelect
-                                disableOnClickOutside={false}
+                                onChange={(e)=>{
+                                    GetQueuesByDate(e.format("DD-MM-YYYY"));
+                                    Cookies.set('userDate', e.format("DD-MM-YYYY"))
+                                }}
                                 inputProps={{ placeholder: "Choose Here..." }}
                               />
                             </FormControl>
@@ -158,20 +149,16 @@ export default function UserProfilePage(props) {
                         </GridContainer>
                         <div className='schedule-wrapper'>
                         <GridContainer>
-                        {ScheduleBtnHandler()}
-                        {items.map((x) => {
-                          return x;
-                        })} 
+                        <GridItem xs={12} sm={12} md={6}>
+                        <ScheduleBtn
+                        schedule = {datePick}
+                        >
+                        </ScheduleBtn>
+                        </GridItem>
                         </GridContainer>
                         </div>
                       </div>
                       <GridItem xs={12} sm={12} md={12} justify="center">
-                        <Button 
-                        onClick={()=>{
-
-                        }}
-                        color="primary">Submit
-                        </Button>
                       </GridItem>
                       </GridItem>
                     )
