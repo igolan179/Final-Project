@@ -16,8 +16,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="QueueDate" Type="DateTime" Precision="3" />
-    <Property Name="Treatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="QueueDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="QueueTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Treatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Customers" Relationship="Self.FK_KEY" FromRole="CustomerQueue" ToRole="Customer" />
   </EntityType>
   <Association Name="FK_KEY">

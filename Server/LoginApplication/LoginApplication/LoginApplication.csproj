@@ -235,6 +235,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\QueueController.cs" />
@@ -264,8 +265,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VM\CustomerQueueResponse.cs" />
     <Compile Include="VM\LoginClass.cs" />
     <Compile Include="VM\DateClass.cs" />
+    <Compile Include="VM\MyCustomerResponse.cs" />
+    <Compile Include="VM\MyResponseClass.cs" />
     <Compile Include="VM\QueueClass.cs" />
     <Compile Include="VM\QueueClassResponse.cs" />
     <Compile Include="VM\RegisterClass.cs" />

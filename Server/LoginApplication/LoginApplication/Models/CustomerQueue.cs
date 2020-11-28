@@ -21,7 +21,8 @@ namespace LoginApplication.Models
         }
     
         public int Id { get; set; }
-        public Nullable<System.DateTime> QueueDate { get; set; }
+        public string QueueDate { get; set; }
+        public string QueueTime { get; set; }
         public string Treatment { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

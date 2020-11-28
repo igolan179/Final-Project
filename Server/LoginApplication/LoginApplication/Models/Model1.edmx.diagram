@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="363a3eb0a0bc4b5ea887f2963ece5577" Name="Diagram1">
+      <Diagram DiagramId="6acf8ad584a7419bb31e3bd62893bff2" Name="Diagram1">
         <EntityTypeShape EntityType="CosmeticDBModel.Customer" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CosmeticDBModel.CustomerQueue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CosmeticDBModel.CustomerQueue" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="CosmeticDBModel.FK_KEY" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

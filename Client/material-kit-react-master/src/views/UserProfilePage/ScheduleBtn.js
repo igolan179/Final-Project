@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { useState } from 'react';
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -14,62 +14,122 @@ import styles from "assets/jss/material-kit-react/views/profilePage.js";
 const useStyles = makeStyles(styles);
 
 export default function ScheduleBtn(props) { // {9, 12, 16,}
-    const { schedule } = props;
+    const { schedule, hour } = props;
     const classes = useStyles();
-    const [btnColor, setbtnColor] = React.useState(true);
+    const [btnColor, setbtnColor] = React.useState('success')
+
+    var valueState;
+
+
+
+    function AppointmentEditHandler(time) {
+        console.log(valueState)
+        fetch('https://localhost:44361/api/queue/EditQueue', {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                customerId: Cookies.get('userId').toString(),
+                customerQueueDate: Cookies.get('userDate'),
+                customerQueueTime: time.slice(0, 2),
+                customerTreatment: valueState,
+            })
+        })
+            .then((Response) => Response.json())
+            .then((Result) => {
+                if (Result.Status == 'Success') {
+                    swal({
+                        title: "Success!",
+                        text: Result.Message,
+                        icon: "success",
+                    }).then(() => {
+                        setbtnColor('danger');
+                        window.location.reload(false);
+                    })
+                } else {
+                    swal({
+                        title: "Error!",
+                        text: Result.Message,
+                        icon: "error",
+                    })
+                }
+            }).catch(err => {
+                if (err) {
+                    swal("Error!", "The server is offline!", "error");
+                } else {
+                    swal.stopLoading();
+                    swal.close();
+                }
+            });
+    }
 
     function AppointmentHandler(time) {
         swal({
             text: 'Please Type a Treatment',
             content: "input",
             button: {
-              text: "Make an Appointment!",
-              closeModal: false,
+                text: "Make an Appointment!",
+                closeModal: false,
             },
-          })
-          .then((value) => {
-            return fetch('https://localhost:44361/api/queue/SetQueue', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    customerId: Cookies.get('userId'),
-                    customerQueueDate: Cookies.get('userDate'),
-                    customerQueueTime: time.slice(0, 2),
-                    customerTreatment: value,
-              })
+        })
+            .then((value) => {
+                valueState= value;
+                console.log(valueState)
+                return fetch('https://localhost:44361/api/queue/SetQueue', {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        customerId: Cookies.get('userId').toString(),
+                        customerQueueDate: Cookies.get('userDate'),
+                        customerQueueTime: time.slice(0, 2),
+                        customerTreatment: value,
+                    })
+                });
+            })
+            .then((Response) => Response.json())
+            .then((Result) => {
+                if (Result.Status == 'Success') {
+                    swal({
+                        title: "Success!",
+                        text: Result.Message,
+                        icon: "success",
+                    }).then(() => {
+                        setbtnColor('danger');
+                        window.location.reload(false);
+                })}
+                else if (Result.Status == 'Exist') {
+                    swal({
+                        title: Result.Message,
+                        text: "Do you wish to Switch your previous appointment and set this date?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                        .then((willCancel) => {
+                            if (willCancel) {
+                                AppointmentEditHandler(time);
+                            } else {
+                                swal("Your previous appointment is saved.");
+                            }
+                        });
+                }
+            })
+            .catch(err => {
+                if (err) {
+                    swal("Error!", "The server is offline!", "error");
+                } else {
+                    swal.stopLoading();
+                    swal.close();
+                }
             });
-          })
-          .then((Response) => Response.json())
-          .then((Result) => {
-            if (Result.Status == 'Success'){
-                swal({
-                    title: "Success!",
-                    text: Result.Message,
-                    icon: "success",
-                  })
-            }
-            else{
-                swal({
-                    title: "Error!",
-                    text: Result.Message,
-                    icon: "error",
-                })
-            }
-          })
-          .catch(err => {
-            if (err) {
-              swal("Error!", "The server is offline!", "error");
-            } else {
-              swal.stopLoading();
-              swal.close();
-            }
-          });
-        }
-          
-    function BtnCreator(hour) {
+    }
+
+    function BtnCreator() {
         var flag = false;
         if (schedule == null) return ""
         for (var i = 0; i < schedule.length; i++) {
@@ -97,11 +157,10 @@ export default function ScheduleBtn(props) { // {9, 12, 16,}
                     <GridItem xs={12} sm={12} md={2} className="schedule-grid">
                         <Button
                             className="schedule-Btn"
-                            color="success"
+                            color={btnColor}
                             round
                             onClick={(event) => {
                                 AppointmentHandler(hour)
-
                             }}
                         >
                             <ScheduleIcon className={classes.inputIconsColor} /> {hour}:00
@@ -114,14 +173,7 @@ export default function ScheduleBtn(props) { // {9, 12, 16,}
 
     return (
         <span>
-            {BtnCreator('09')}
-            {BtnCreator('10')}
-            {BtnCreator('11')}
-            {BtnCreator('12')}
-            {BtnCreator('13')}
-            {BtnCreator('14')}
-            {BtnCreator('15')}
-            {BtnCreator('16')}
+            {BtnCreator()}
         </span>
     )
 }

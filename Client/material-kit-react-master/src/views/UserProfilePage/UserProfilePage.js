@@ -1,5 +1,6 @@
 import React from "react";
 // nodejs library that concatenates classes
+import { Router, Route, Switch, Redirect } from "react-router-dom";
 import classNames from "classnames";
 // react plugin for creating date-time-picker
 import Datetime from "react-datetime";
@@ -7,7 +8,6 @@ import Datetime from "react-datetime";
 import { makeStyles } from "@material-ui/core/styles";
 // @material-ui/icons
 import EventBusyIcon from '@material-ui/icons/EventBusy';
-import EventNoteIcon from '@material-ui/icons/EventNote';
 import EventAvailableIcon from '@material-ui/icons/EventAvailable';
 import SettingsIcon from '@material-ui/icons/Settings';
 // core components
@@ -22,6 +22,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Parallax from "components/Parallax/Parallax.js";
 import ScheduleBtn from 'views/UserProfilePage/ScheduleBtn.js'
+import CancelForm from 'views/UserProfilePage/CancelForm.js'
 
 
 import Cookies from 'js-cookie'
@@ -41,16 +42,15 @@ export default function UserProfilePage(props) {
     classes.imgFluid
   );
   const [datePick, setdatePick] = React.useState(null);
-  const [customerQueue, setcustomerQueue] = React.useState("");
 
-  function reDirect(){
-      if(Cookies.get('userId') == undefined){
-        props.history.push('/login-page');
-      }
+  function reDirect() {
+    if (Cookies.get('userId') == undefined) {
+      return <Redirect to='/login-page' />
+    }
   }
 
 
-  function GetQueuesByDate(date){
+  function GetQueuesByDate(date) {
     fetch('https://localhost:44361/api/queue/GetQueues', {
       method: 'post',
       headers: {
@@ -61,15 +61,36 @@ export default function UserProfilePage(props) {
         date: date,
       })
     }).then((Response) => Response.json())
-    .then((Result) => {
-      console.log(Result);
-      setdatePick(Result);
-    });
+      .then((Result) => {
+        console.log(Result);
+        setdatePick(Result);
+      });
+  }
+
+  function GetAppointment() {
+    fetch('https://localhost:44361/api/queue/GetCustomerQueue', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        date: Cookies.get('userId').toString(),
+      })
+    }).then((Response) => Response.json())
+      .then((Result) => {
+        console.log(Result);
+        Cookies.set('appointmentDate', Result.date);
+        Cookies.set('appointmentTime', Result.time)
+        Cookies.set('appointmentTreatment', Result.treatment)
+        Cookies.set('appointmentId', Result.id)
+      });
   }
 
   return (
     <div>
       {reDirect()}
+      {GetAppointment()}
       <Header
         color="transparent"
         brand="Profile Page"
@@ -116,96 +137,117 @@ export default function UserProfilePage(props) {
             </div>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={8} className={classes.navWrapper}>
-              <CustomTabs
-                headerColor="primary"
-                tabs={[
-                  {
-                    tabName: "Make an Appointment",
-                    tabIcon: EventAvailableIcon,
-                    tabContent: (
-                      <GridItem xs={12} sm={12} md={12}>
-                        <div className="schedule-grid">
-                        <div className={classes.title}>
-                          <h3>Pick Your Appointment Date</h3>
-                        </div>
-                        <GridContainer>
-                          <GridItem xs={12} sm={12} md={6}>
-                            <InputLabel className={classes.label}>
-                                Choose date and time:
+                <CustomTabs
+                  headerColor="primary"
+                  tabs={[
+                    {
+                      tabName: "Make an Appointment",
+                      tabIcon: EventAvailableIcon,
+                      tabContent: (
+                        <GridItem xs={12} sm={12} md={12}>
+                          <div className="schedule-grid">
+                            <div className={classes.title}>
+                              <h3>Pick Your Appointment Date</h3>
+                            </div>
+                            <GridContainer>
+                              <GridItem xs={12} sm={12} md={6}>
+                                <InputLabel className={classes.label}>
+                                  Choose date and time:
                             </InputLabel>
-                            <br />
-                            <FormControl fullWidth>
-                              <Datetime
-                                timeFormat={false}
-                                closeOnSelect
-                                onChange={(e)=>{
-                                    GetQueuesByDate(e.format("DD-MM-YYYY"));
-                                    Cookies.set('userDate', e.format("DD-MM-YYYY"))
-                                }}
-                                inputProps={{ placeholder: "Choose Here..." }}
-                              />
-                            </FormControl>
+                                <br />
+                                <FormControl fullWidth>
+                                  <Datetime
+                                    timeFormat={false}
+                                    closeOnSelect
+                                    onChange={(e) => {
+                                      GetQueuesByDate(e.format("DD-MM-YYYY"));
+                                      Cookies.set('userDate', e.format("DD-MM-YYYY"))
+                                    }}
+                                    inputProps={{ placeholder: "Choose Here..." }}
+                                  />
+                                </FormControl>
+                              </GridItem>
+                            </GridContainer>
+                            <div className='schedule-wrapper'>
+                              <GridContainer>
+                                <GridItem xs={12} sm={12} md={6}>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '09'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '10'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '11'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '12'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '13'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '14'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '15'
+                                  >
+                                  </ScheduleBtn>
+                                  <ScheduleBtn
+                                    schedule={datePick}
+                                    hour = '16'
+                                  >
+                                  </ScheduleBtn>
+                                </GridItem>
+                              </GridContainer>
+                            </div>
+                          </div>
+                          <GridItem xs={12} sm={12} md={12} justify="center">
                           </GridItem>
-                        </GridContainer>
-                        <div className='schedule-wrapper'>
-                        <GridContainer>
-                        <GridItem xs={12} sm={12} md={6}>
-                        <ScheduleBtn
-                        schedule = {datePick}
-                        >
-                        </ScheduleBtn>
                         </GridItem>
-                        </GridContainer>
+                      )
+                    },
+                    {
+                      tabName: "Cancel Appointment",
+                      tabIcon: EventBusyIcon,
+                      tabContent: (
+                        <div>
+                          <CancelForm
+                          ></CancelForm>
                         </div>
-                      </div>
-                      <GridItem xs={12} sm={12} md={12} justify="center">
-                      </GridItem>
-                      </GridItem>
-                    )
-                  },
-                  {
-                    tabName: "Edit Appointment",
-                    tabIcon: EventNoteIcon,
-                    tabContent: (
-                    <div>
-                        
-                    </div>
-                    )
-                  },
-                  {
-                    tabName: "Cancel Appointment",
-                    tabIcon: EventBusyIcon,
-                    tabContent: (
-                      <p className={classes.textCenter}>
-                        think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. So when you get something that has
-                        the name Kanye West on it, it’s supposed to be pushing
-                        the furthest possibilities. I will be the leader of a
-                        company that ends up being worth billions of dollars,
-                        because I got the answers. I understand culture. I am
-                        the nucleus.
-                      </p>
-                    )
-                  },
-                  {
-                    tabName: "Settings",
-                    tabIcon: SettingsIcon,
-                    tabContent: (
-                      <p className={classes.textCenter}>
-                        think that’s a responsibility that I have, to push
-                        possibilities, to show people, this is the level that
-                        things could be at. So when you get something that has
-                        the name Kanye West on it, it’s supposed to be pushing
-                        the furthest possibilities. I will be the leader of a
-                        company that ends up being worth billions of dollars,
-                        because I got the answers. I understand culture. I am
-                        the nucleus.
-                      </p>
-                    )
-                  }
-                ]}
-              />
+                      )
+                    },
+                    {
+                      tabName: "Settings",
+                      tabIcon: SettingsIcon,
+                      tabContent: (
+                        <p className={classes.textCenter}>
+                          think that’s a responsibility that I have, to push
+                          possibilities, to show people, this is the level that
+                          things could be at. So when you get something that has
+                          the name Kanye West on it, it’s supposed to be pushing
+                          the furthest possibilities. I will be the leader of a
+                          company that ends up being worth billions of dollars,
+                          because I got the answers. I understand culture. I am
+                          the nucleus.
+                        </p>
+                      )
+                    }
+                  ]}
+                />
               </GridItem>
             </GridContainer>
           </div>

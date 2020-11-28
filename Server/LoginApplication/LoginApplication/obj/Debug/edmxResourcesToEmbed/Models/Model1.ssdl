@@ -15,8 +15,9 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="QueueDate" Type="datetime" />
-    <Property Name="Treatment" Type="varchar" MaxLength="50" />
+    <Property Name="QueueDate" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="QueueTime" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Treatment" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Association Name="FK_KEY">
     <End Role="CustomerQueue" Type="Self.CustomerQueue" Multiplicity="0..1" />

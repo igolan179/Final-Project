@@ -20,8 +20,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="QueueDate" Type="datetime" />
-          <Property Name="Treatment" Type="varchar" MaxLength="50" />
+          <Property Name="QueueDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="QueueTime" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Treatment" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_KEY">
           <End Role="CustomerQueue" Type="Self.CustomerQueue" Multiplicity="0..1" />
@@ -64,8 +65,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="QueueDate" Type="DateTime" Precision="3" />
-          <Property Name="Treatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="QueueDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="QueueTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Treatment" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="Self.FK_KEY" FromRole="CustomerQueue" ToRole="Customer" />
         </EntityType>
         <Association Name="FK_KEY">
@@ -110,6 +112,7 @@
               <MappingFragment StoreEntitySet="CustomerQueue">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="QueueDate" ColumnName="QueueDate" />
+                <ScalarProperty Name="QueueTime" ColumnName="QueueTime" />
                 <ScalarProperty Name="Treatment" ColumnName="Treatment" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -17,6 +17,7 @@
         <MappingFragment StoreEntitySet="CustomerQueue">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="QueueDate" ColumnName="QueueDate" />
+          <ScalarProperty Name="QueueTime" ColumnName="QueueTime" />
           <ScalarProperty Name="Treatment" ColumnName="Treatment" />
         </MappingFragment>
       </EntityTypeMapping>

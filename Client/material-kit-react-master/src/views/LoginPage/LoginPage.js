@@ -60,9 +60,9 @@ export default function LoginPage(props) {
           icon: "success",
         })
         .then(() => {
-          var inFifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000);
-          Cookies.set('userId',customerId, {expires: inFifteenMinutes});
-          Cookies.set('userName',Result.Name, {expires: inFifteenMinutes});
+          var inHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+          Cookies.set('userId',customerId, {expires: inHour});
+          Cookies.set('userName',Result.Name, {expires: inHour});
             
           console.log(Cookies.get('userId'));
           console.log(Cookies.get('user'));
