@@ -9,6 +9,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
+import swal from 'sweetalert'
 
 import styles from "assets/jss/material-kit-react/views/landingPageSections/workStyle.js";
 
@@ -16,6 +17,8 @@ const useStyles = makeStyles(styles);
 
 export default function ContactSection() {
   const classes = useStyles();
+
+
   return (
     <div className={classes.section}>
       <GridContainer justify="center">
@@ -57,7 +60,14 @@ export default function ContactSection() {
                 }}
               />
               <GridItem xs={12} sm={12} md={4}>
-                <Button color="info">Send Message</Button>
+                <Button color="info"
+                onClick={e => swal({
+                  title: "Success!",
+                  text: "Messege Received!",
+                  icon: "success",
+              })}
+                >Send Message
+                </Button>
               </GridItem>
             </GridContainer>
           </form>

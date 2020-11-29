@@ -22,16 +22,14 @@ import Parallax from "components/Parallax/Parallax.js";
 
 import logo from "assets/img/faces/avatar.jpg";
 
-import studio1 from "assets/img/examples/studio-1.jpg";
-import studio2 from "assets/img/examples/studio-2.jpg";
-import studio3 from "assets/img/examples/studio-3.jpg";
-import studio4 from "assets/img/examples/studio-4.jpg";
-import studio5 from "assets/img/examples/studio-5.jpg";
-import work1 from "assets/img/examples/olu-eletu.jpg";
-import work2 from "assets/img/examples/clem-onojeghuo.jpg";
-import work3 from "assets/img/examples/cynthia-del-rio.jpg";
-import work4 from "assets/img/examples/mariya-georgieva.jpg";
-import work5 from "assets/img/examples/clem-onojegaw.jpg";
+import nails1 from "assets/img/examples/nails1.jpg";
+import nails2 from "assets/img/examples/nails2.jpg";
+import nails3 from "assets/img/examples/nails3.jpg";
+import pedicure1 from "assets/img/examples/pedicure1.jpg";
+import manicurist1 from "assets/img/examples/manicurist1.jpg";
+import manicurist2 from "assets/img/examples/manicurist2.jpg";
+import manicurist3 from "assets/img/examples/manicurist3.jpg";
+import manicurist4 from "assets/img/examples/manicurist4.jpg";
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
 
@@ -102,8 +100,32 @@ export default function AboutPage(props) {
                       tabButton: "Crew",
                       tabIcon: PeopleIcon,
                       tabContent: (
-                        <GridContainer justify="center">
 
+                        <GridContainer justify="center">
+                          <GridItem xs={12} sm={12} md={4}>
+                            <img
+                              alt="..."
+                              src={manicurist1}
+                              className={navImageClasses}
+                            />
+                            <img
+                              alt="..."
+                              src={manicurist2}
+                              className={navImageClasses}
+                            />
+                          </GridItem>
+                          <GridItem xs={12} sm={12} md={4}>
+                            <img
+                              alt="..."
+                              src={manicurist3}
+                              className={navImageClasses}
+                            />
+                            <img
+                              alt="..."
+                              src={manicurist4}
+                              className={navImageClasses}
+                            />
+                          </GridItem>
                         </GridContainer>
                       )
                     },
@@ -112,7 +134,30 @@ export default function AboutPage(props) {
                       tabIcon: LocalHospitalIcon,
                       tabContent: (
                         <GridContainer justify="center">
-
+                          <GridItem xs={12} sm={12} md={4}>
+                            <img
+                              alt="..."
+                              src={nails1}
+                              className={navImageClasses}
+                            />
+                            <img
+                              alt="..."
+                              src={nails2}
+                              className={navImageClasses}
+                            />
+                          </GridItem>
+                          <GridItem xs={12} sm={12} md={4}>
+                            <img
+                              alt="..."
+                              src={nails3}
+                              className={navImageClasses}
+                            />
+                            <img
+                              alt="..."
+                              src={pedicure1}
+                              className={navImageClasses}
+                            />
+                          </GridItem>
                         </GridContainer>
                       )
                     },

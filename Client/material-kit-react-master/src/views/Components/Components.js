@@ -55,7 +55,8 @@ export default function Components(props) {
               <div className={classes.brand}>
                 <h1 className={classes.title}>Medical Cosmetic Project</h1>
                 <h3 className={classes.subtitle}>
-                  By Idan Golan, Made with Material Kit by "Creative Tim"
+                  By Idan Golan <br></br> Academics Advisor Ilia.<br></br>
+                  Made with React - Material Kit by "Creative Tim,<br></br> C# and SQL Server"
                 </h3>
               </div>
             </GridItem>
@@ -64,25 +65,14 @@ export default function Components(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-        {/* <SectionBasics />
-        <SectionNavbars />
-        <SectionTabs />
-        <SectionPills />
-        <SectionNotifications />
-        <SectionTypography />
-        <SectionJavascript />
-        <SectionCarousel />
-        <SectionCompletedExamples />
-        <SectionLogin />
-        <GridItem md={12} className={classes.textCenter}>
-          <Link to={"/login-page"} className={classes.link}>
-            <Button color="info" size="lg" simple>
-              View Login Page
-            </Button>
-          </Link>
-        </GridItem>
-        <SectionExamples />
-        <SectionDownload /> */}
+        <GridContainer justify="center">
+          <div className={classes.title}>
+            <h1 className={classes.title}>Cosmetic Carusel</h1>
+            <hr></hr>
+          </div>
+        </GridContainer>
+
+        {<SectionCarousel />}
       </div>
       <Footer />
     </div>

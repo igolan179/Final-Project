@@ -10,9 +10,9 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 
-import image1 from "assets/img/bg.jpg";
-import image2 from "assets/img/bg2.jpg";
-import image3 from "assets/img/bg3.jpg";
+import carusel1 from "assets/img/examples/carusel1.jpg";
+import carusel2 from "assets/img/examples/carusel2.jpg";
+import carusel3 from "assets/img/examples/carusel3.jpg";
 
 import styles from "assets/jss/material-kit-react/views/componentsSections/carouselStyle.js";
 
@@ -36,35 +36,17 @@ export default function SectionCarousel() {
             <Card carousel>
               <Carousel {...settings}>
                 <div>
-                  <img src={image1} alt="First slide" className="slick-image" />
-                  <div className="slick-caption">
-                    <h4>
-                      <LocationOn className="slick-icons" />
-                      Yellowstone National Park, United States
-                    </h4>
-                  </div>
+                  <img src={carusel1} alt="First slide" className="slick-image" />
                 </div>
                 <div>
                   <img
-                    src={image2}
+                    src={carusel2}
                     alt="Second slide"
                     className="slick-image"
                   />
-                  <div className="slick-caption">
-                    <h4>
-                      <LocationOn className="slick-icons" />
-                      Somewhere Beyond, United States
-                    </h4>
-                  </div>
                 </div>
                 <div>
-                  <img src={image3} alt="Third slide" className="slick-image" />
-                  <div className="slick-caption">
-                    <h4>
-                      <LocationOn className="slick-icons" />
-                      Yellowstone National Park, United States
-                    </h4>
-                  </div>
+                  <img src={carusel3} alt="Third slide" className="slick-image" />
                 </div>
               </Carousel>
             </Card>

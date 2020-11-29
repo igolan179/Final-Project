@@ -23,6 +23,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Parallax from "components/Parallax/Parallax.js";
 import ScheduleBtn from 'views/UserProfilePage/ScheduleBtn.js'
 import CancelForm from 'views/UserProfilePage/CancelForm.js'
+import SettingsForm from 'views/UserProfilePage/SettingsForm.js'
 
 
 import Cookies from 'js-cookie'
@@ -68,6 +69,9 @@ export default function UserProfilePage(props) {
   }
 
   function GetAppointment() {
+    if (Cookies.get('userId') == undefined) {
+      return 
+    }
     fetch('https://localhost:44361/api/queue/GetCustomerQueue', {
       method: 'post',
       headers: {
@@ -173,42 +177,42 @@ export default function UserProfilePage(props) {
                                 <GridItem xs={12} sm={12} md={6}>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '09'
+                                    hour='09'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '10'
+                                    hour='10'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '11'
+                                    hour='11'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '12'
+                                    hour='12'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '13'
+                                    hour='13'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '14'
+                                    hour='14'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '15'
+                                    hour='15'
                                   >
                                   </ScheduleBtn>
                                   <ScheduleBtn
                                     schedule={datePick}
-                                    hour = '16'
+                                    hour='16'
                                   >
                                   </ScheduleBtn>
                                 </GridItem>
@@ -234,16 +238,11 @@ export default function UserProfilePage(props) {
                       tabName: "Settings",
                       tabIcon: SettingsIcon,
                       tabContent: (
-                        <p className={classes.textCenter}>
-                          think that’s a responsibility that I have, to push
-                          possibilities, to show people, this is the level that
-                          things could be at. So when you get something that has
-                          the name Kanye West on it, it’s supposed to be pushing
-                          the furthest possibilities. I will be the leader of a
-                          company that ends up being worth billions of dollars,
-                          because I got the answers. I understand culture. I am
-                          the nucleus.
-                        </p>
+                        <div>
+                      <SettingsForm>
+                        
+                      </SettingsForm>
+                        </div>
                       )
                     }
                   ]}

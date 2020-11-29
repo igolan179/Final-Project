@@ -16,6 +16,7 @@ import Parallax from "components/Parallax/Parallax.js";
 import ContactSection from "./Sections/ContactSection.js";
 
 import logo from "assets/img/faces/avatar.jpg";
+import logo2 from "assets/img/faces/kendall.jpg";
 
 
 import styles from "assets/jss/material-kit-react/views/profilePage.js";
@@ -52,7 +53,7 @@ export default function ContactPage(props) {
               <GridItem xs={12} sm={12} md={6}>
                 <div className={classes.profile}>
                   <div>
-                    <img src={logo} alt="..." className={imageClasses} />
+                    <img src={logo2} alt="..." className={imageClasses} />
                   </div>
                   <div className={classes.name}>
                     <h1 className={classes.title}>Cosmetic Medical</h1>
